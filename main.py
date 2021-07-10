@@ -81,8 +81,6 @@ def home():
     else:
         return redirect(url_for('login'))
 
-   
-
 @app.route('/insert', methods=['POST', 'GET'])
 def insert():
     chapters = Chapter.query.all()
@@ -121,25 +119,29 @@ def edit(id):
 
     if request.method == 'POST':
 
-        title = request.form['title']
-        content = request.form['content']
-        source = request.form['source']
-        related_chapter = request.form['chapter']
+        if "password" in session:
+            title = request.form['title']
+            content = request.form['content']
+            source = request.form['source']
+            related_chapter = request.form['chapter']
         
 
-        update_this = Text.query.filter_by(id=id).first()
+            update_this = Text.query.filter_by(id=id).first()
 
-        update_this.title=title
-        update_this.content=content
-        update_this.source=source
-        update_this.chapter_id=related_chapter
+            update_this.title=title
+            update_this.content=content
+            update_this.source=source
+            update_this.chapter_id=related_chapter
         
+        
+            db.session.commit()
+            flash('Aggiornamento andato a buon fine, Grazie!', category='success')
+            return redirect(url_for('home'))
 
+            else:
+                return redirect(url_for('home'))
 
         
-        db.session.commit()
-        flash('Aggiornamento andato a buon fine, Grazie!', category='success')
-        return redirect(url_for('home'))
 
 
     
