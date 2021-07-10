@@ -138,8 +138,8 @@ def edit(id):
             flash('Aggiornamento andato a buon fine, Grazie!', category='success')
             return redirect(url_for('home'))
 
-            else:
-                return redirect(url_for('home'))
+        else:
+            return redirect(url_for('home'))
 
         
 
