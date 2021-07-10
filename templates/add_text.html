@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Nuovo testo{% endblock title %}
+
+{% block content %}
+
+<div class="container p-4">
+    <h3>Nuovo testo</h3>
+    <form action="" method="post">
+        <div class="form-group m-2">
+            <input type="text" name="title" id="" class="form-control" placeholder="Titolo">
+        </div>
+        <div class="form-group m-2">
+            <textarea name="content" id="" class="form-control" placeholder="Contenuto" required></textarea>
+        </div>
+        <div class="form-group m-2">
+            <input type="text" name="source" id="" class="form-control" placeholder="Fonte">
+        </div>
+        <div class="form-group m-2">
+            <select class="form-control" name="chapter" id="">
+                <option value="">-- Segliere un capitolo --</option>
+
+                {% for chapter in chapters %}
+                <option value="{{chapter.id}}">{{chapter.chapter}}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <div class="form-group m-2">
+            <button class="btn btn-primary" role="submit">Aggiungi testo</button>
+        </div>
+
+    </form>
+</div>
+
+
+
+{% endblock content %}

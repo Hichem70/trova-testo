@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %} {% endblock title %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category, message in messages %}
+<div class="alert alert-success alert-dismissible fade show m-5" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+
+{% endif %}
+{% endwith %}
+
+<div class="container-md bg-light p-3 rounded-3 m-3">
+
+    {% if texts %}
+
+    {% for text in texts %}
+    {% if text.title %}
+        <h3>{{text.title}}</h3>
+    {% else %}
+        <h3 class="text-danger">Senza titolo :(</h3>            
+    {% endif %}
+    
+    <p>{{text.content}}</p>
+    {% if text.source %}
+        <p><b><small>Fonte: {{text.source}}</small></b></p>
+    {% else %}
+    <p><b><small class="text-danger">l'utente non ha specificato una fonte</small></b></p>
+    {% endif %}
+    
+
+    <div>
+        <small>{{text.chapter.chapter}}</small>
+    </div>
+
+    <div>
+        <a href="/edit/{{text.id}}" class="btn btn-primary btn-sm inline">Aggiorna</a>
+        <a href="/remove/{{text.id}}" class="btn btn-danger btn-sm inline">cancella</a>
+
+    </div>
+    <hr>
+
+    {% endfor %}
+
+    {% else %}
+    <div class="alert alert-secondary">
+        <h3>Non ci sono testi.<a href="/insert"> Aggiungi testo</a></h3>
+    </div>
+    {% endif %}
+
+
+</div>
+
+
+
+{% endblock content %}
