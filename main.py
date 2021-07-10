@@ -11,16 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    firstname = db.Column(db.String(250), nullable=False)
-    lastname = db.Column(db.String(250), nullable=False)
-    password = db.Column(db.String(250), nullable=False)
-    texts = db.relationship('Text', backref='user', lazy=True)
 
-    def __init__(self, chapter):
-        self.firstname = firstname
-        self.lastname = lastname
 
 class Chapter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,31 +27,31 @@ class Text(db.Model):
     content = db.Column(db.String(20000), nullable=False)
     source = db.Column(db.String(250), nullable=False)
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
 
     def __init__(self, title, content, source, chapter_id):
         self.title = title
         self.content = content
         self.source = source
         self.chapter_id = chapter_id
-        self.user_id = user_id
+    
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    users = User.query.all()
+    
 
     if request.method == 'POST':
         
         username = request.form['username']
         password = request.form['password']
 
-        user = User.query.filter_by(id=username).first()
+        
 
-        if user.password == password:
+        if password == "docenti2021" and username != "":
             session['password'] = password
-            flash(f'Ciao {user.firstname} !', 'success')
+            flash(f'Ciao {username} !', 'success')
             return redirect(url_for('home'))
         else:
             flash(f'Password errata! Riprova', 'error')
@@ -70,7 +61,7 @@ def login():
 
 
 
-    return render_template('login.html', users=users)
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
@@ -134,6 +125,7 @@ def edit(id):
         content = request.form['content']
         source = request.form['source']
         related_chapter = request.form['chapter']
+        
 
         update_this = Text.query.filter_by(id=id).first()
 
@@ -141,6 +133,7 @@ def edit(id):
         update_this.content=content
         update_this.source=source
         update_this.chapter_id=related_chapter
+        
 
 
         
@@ -154,4 +147,4 @@ def edit(id):
     return render_template('edit.html', text=text, chapters=chapters)
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

@@ -14,19 +14,14 @@
 </head>
 
 <body class="d-flex justify-content-center align-items-center flex-column w-100">
-    <form class="text-center w-50 m-5" method="POST" action="">
+    <form class="text-center w-25 m-5" method="POST" action="">
 
         <h1 class="h3 mb-3 font-weight-normal">Accedi</h1>
 
-        <select name="username" class="form-control m-2" name="" id="" required autofocus>
-            <option value="">-- Scegliere il cognome --</option>
-            {% for user in users %}
-            <option value="{{user.id}}">{{user.lastname}}</option>
-            {% endfor %}
-        </select>
 
+        <input name="username" type="text" id="" class="form-control m-2" placeholder="Username" required>
         <input name="password" type="password" id="" class="form-control m-2" placeholder="Password" required>
-        
+
         <button class="btn btn-primary" type="submit">Entra</button>
 
     </form>
