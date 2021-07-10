@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} {% endblock title %}
+{% block title %}| Home{% endblock title %}
 
 {% block content %}
 
@@ -42,8 +42,8 @@
     </div>
 
     <div>
-        <a href="/edit/{{text.id}}" class="btn btn-primary btn-sm inline">Aggiorna</a>
-        <a href="/remove/{{text.id}}" class="btn btn-danger btn-sm inline">cancella</a>
+        <a href="/edit/{{text.id}}" class="btn btn-primary btn-sm inline">Modifica</a>
+        <a href="/remove/{{text.id}}" class="btn btn-danger btn-sm inline">Cancella</a>
 
     </div>
     <hr>
@@ -52,7 +52,7 @@
 
     {% else %}
     <div class="alert alert-secondary">
-        <h3>Non ci sono testi.<a href="/insert"> Aggiungi testo</a></h3>
+        <h3>Per il momento non ci sono testi.<a href="/insert"> Ne vuoi aggiungere uno?</a></h3>
     </div>
     {% endif %}
 

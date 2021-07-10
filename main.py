@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -11,6 +11,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String(250), nullable=False)
+    lastname = db.Column(db.String(250), nullable=False)
+    password = db.Column(db.String(250), nullable=False)
+    texts = db.relationship('Text', backref='user', lazy=True)
+
+    def __init__(self, chapter):
+        self.firstname = firstname
+        self.lastname = lastname
+
 class Chapter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     chapter = db.Column(db.String(250), nullable=False)
@@ -19,32 +30,67 @@ class Chapter(db.Model):
     def __init__(self, chapter):
         self.chapter = chapter
     
-
 class Text(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), nullable=False)
-    content = db.Column(db.String(250), nullable=False)
+    content = db.Column(db.String(20000), nullable=False)
     source = db.Column(db.String(250), nullable=False)
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __init__(self, title, content, source, chapter_id):
         self.title = title
         self.content = content
         self.source = source
         self.chapter_id = chapter_id
+        self.user_id = user_id
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+    users = User.query.all()
+
+    if request.method == 'POST':
+        
+        username = request.form['username']
+        password = request.form['password']
+
+        user = User.query.filter_by(id=username).first()
+
+        if user.password == password:
+            session['password'] = password
+            flash(f'Ciao {user.firstname} !', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash(f'Password errata! Riprova', 'error')
 
 
 
+
+
+
+    return render_template('login.html', users=users)
+
+@app.route('/logout')
+def logout():
+
+    session.clear()
+    return redirect(url_for('login'))
 
 
 @app.route('/')
 def home():
 
-    chapters = Chapter.query.all()
+    if "password" in session:
+        chapters = Chapter.query.all()
+        texts = Text.query.all()
+        return render_template('index.html', chapters=chapters, texts=texts)
 
-    texts = Text.query.all()
+    else:
+        return redirect(url_for('login'))
 
-    return render_template('index.html', chapters=chapters, texts=texts)
+   
 
 @app.route('/insert', methods=['POST', 'GET'])
 def insert():

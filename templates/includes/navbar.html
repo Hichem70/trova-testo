@@ -14,9 +14,17 @@
           </li>
           
         </ul>
-        <span class="navbar-text">
-          ENTRA
-        </span>
+        {% if "password" in session %}
+
+          <span class="navbar-text">
+            <a class="btn btn-light text-dark" href="/logout">LOGOUT</a>
+          </span>
+
+        {% else %}
+
+          <div></div>
+          
+        {% endif %}
       </div>
     </div>
   </nav>
