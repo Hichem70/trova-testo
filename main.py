@@ -39,6 +39,9 @@ class Text(db.Model):
         self.contribuente = contribuente
         self.chapter_id = chapter_id
 
+@app.route('/')
+def welcome():
+    return render_template('welcome.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -154,7 +157,6 @@ def edit(id):
     return render_template('edit.html', text=text, chapters=chapters)
 
 @app.route('/home', methods=['POST', 'GET'])
-@app.route('/', methods=['POST', 'GET'])
 def index():
 
     chapters = Chapter.query.all()

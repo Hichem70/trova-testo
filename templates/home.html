@@ -4,6 +4,7 @@
 
     {% if texts %}
         <form class="container p-5 m-5 bg-light" action="" method="post">
+            <h3 class="m-2">Cerca per capitolo</h3>
             
             <div class="m-2">
                 <select class="form-control" name="chapterId" id="">
@@ -23,11 +24,11 @@
         </form>
 
         {% for text in texts %}
-            <div class="container-md p-5 m-5 rounded-5 bg-light">
+            <div class="container-md p-5 m-2 rounded-5 bg-light">
                 <h3>Titolo: {{text.title}}</h3>
                 <p><small>Aggiunto da: <b>{{text.contribuente}}</b></small></p>
                 <hr>
-                <p>{{text.content}}</p>
+                <p style="text-align: justify;">{{text.content}}</p>
                 <hr>
                 <p><small>Fonte: {{text.source}}</small></p>
                 <p><small>Classe: {{text.level}}</small></p>
@@ -38,6 +39,7 @@
     {% else %}
         
         <form class="container p-5 m-5 bg-light" action="" method="post">
+            <h3 class="m-2">Cerca per capitolo</h3>
             <div class="m-2">
                 <select class="form-control" name="chapterId" id="">
                     <option value="">-- Segliere un capitolo --</option>
@@ -56,11 +58,11 @@
         </form>
 
         {% for all_text in all_texts %}
-            <div class="container-md p-5 m-5 rounded-5 bg-light">
+            <div class="container-md p-5 m-2 rounded-3 bg-light">
                 <h3>Titolo: {{all_text.title}}</h3>
                 <p><small>Aggiunto da: {{all_text.contribuente}}</small></p>
                 <hr>
-                <p>{{all_text.content}}</p>
+                <p style="text-align: justify;">{{all_text.content}}</p>
                 <hr>
                 <p><small>Fonte: {{all_text.source}}</small></p>
                 <p><small>Livello: {{all_text.level}}</small></p>
