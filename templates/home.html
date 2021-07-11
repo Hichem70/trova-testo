@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if texts %}
+        <form class="container p-5 m-5 bg-light" action="" method="post">
+            
+            <div class="m-2">
+                <select class="form-control" name="chapterId" id="">
+                    <option value="">-- Scegliere un capitolo --</option>
+                    {% for chapter in chapters %}
+                        
+                        <option value="{{chapter.id}}">{{chapter.chapter}}</option>
+                    {% endfor %}
+                    
+                </select>
+            </div>
+
+            <div class="m-2">
+                <button class="btn btn-primary" role="submit">Cerca</button>
+            </div>
+            
+        </form>
+
+        {% for text in texts %}
+            <div class="container-md p-5 m-5 rounded-5 bg-light">
+                <h3>Titolo: {{text.title}}</h3>
+                <p><small>Aggiunto da: <b>{{text.contribuente}}</b></small></p>
+                <hr>
+                <p>{{text.content}}</p>
+                <hr>
+                <p><small>Fonte: {{text.source}}</small></p>
+                <p><small>Classe: {{text.level}}</small></p>
+                <p><small><b>Capitolo: <b>{{text.chapter.chapter}}</b></b> </small></p>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        
+        <form class="container p-5 m-5 bg-light" action="" method="post">
+            <div class="m-2">
+                <select class="form-control" name="chapterId" id="">
+                    <option value="">-- Segliere un capitolo --</option>
+                    {% for chapter in chapters %}
+                        
+                        <option value="{{chapter.id}}">{{chapter.chapter}}</option>
+                    {% endfor %}
+                    
+                </select>
+            </div>
+
+            <div class="m-2">
+                <button class="btn btn-primary" role="submit">Cerca</button>
+            </div>
+            
+        </form>
+
+        {% for all_text in all_texts %}
+            <div class="container-md p-5 m-5 rounded-5 bg-light">
+                <h3>Titolo: {{all_text.title}}</h3>
+                <p><small>Aggiunto da: {{all_text.contribuente}}</small></p>
+                <hr>
+                <p>{{all_text.content}}</p>
+                <hr>
+                <p><small>Fonte: {{all_text.source}}</small></p>
+                <p><small>Livello: {{all_text.level}}</small></p>
+                <p><small><b>{{all_text.chapter.chapter}}</b> </small></p>
+            </div>
+        {% endfor %}
+
+    {% endif %}
+    
+{% endblock content %}
+

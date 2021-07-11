@@ -5,20 +5,41 @@
 {% block content %}
 
 <div class="container p-4">
-    <h3>Nuovo testo</h3>
+    
     <form action="" method="post">
+
+        <h3 class="m-2">NUOVO TESTO</h3>
+        
+
         <div class="form-group m-2">
-            <input type="text" name="title" id="" class="form-control" placeholder="Titolo">
+            <input type="text" name="contrib" id="" class="form-control" placeholder="Nome e cognome" required>
+        </div>
+
+
+        <div class="form-group m-2">
+            <input type="text" name="title" id="" class="form-control" placeholder="Titolo" required>
         </div>
         <div class="form-group m-2">
-            <textarea name="content" id="" class="form-control" placeholder="Contenuto" required></textarea>
+            <textarea rows="8" name="content" id="" class="form-control" placeholder="Contenuto" required></textarea>
         </div>
         <div class="form-group m-2">
-            <input type="text" name="source" id="" class="form-control" placeholder="Fonte">
+            <input type="text" name="source" id="" class="form-control" placeholder="Fonte" required>
         </div>
+
         <div class="form-group m-2">
+
+            <select class="form-control" name="level" id="">
+                <option value="">-- Scegliere un livello --</option>
+                <option value="3° Anno">3° Anno</option>
+                <option value="4° Anno">4° Anno</option>
+            </select>
+
+        </div>
+
+        <div class="form-group m-2">
+
             <select class="form-control" name="chapter" id="">
-                <option value="">-- Segliere un capitolo --</option>
+                <option value="">-- Scegliere un capitolo --</option>
 
                 {% for chapter in chapters %}
                 <option value="{{chapter.id}}">{{chapter.chapter}}</option>
